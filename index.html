@@ -1,1 +1,374 @@
-Hello World
+<!DOCTYPE html>
+<html>
+	<head>
+	
+    <title>Crime at Cal &mdash; Visualizing crime reports at UC Berkeley</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" type="text/css" />
+    <link rel="stylesheet" href="./style.css" type="text/css" />
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjx-1kF28DSk8TihkbNJPkeOQTipuvx3g&sensor=false&libraries=drawing,geometry"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn-history/r300/trunk/maplabel/src/maplabel.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="./map1.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mbostock/d3/master/lib/colorbrewer/colorbrewer.js"></script>
+    
+    </head>
+    <body>
+    	<h1>Crime at Cal</h1>
+    	<h3>Visualizing crime reports at UC Berkeley</h3>
+    	<h2></h2>
+    	<div id='navigation'>
+    		<a href = "./index.html">Report</a> | <a href = "./map.html">Map</a>  | <a href = "./about.html">About</a>
+    	</div>
+    	<h2></h2>
+    	<div id ='toc'>
+			<table>
+				<tr>
+					<th><a href="#introduction">Introduction</a></th>
+				</tr>
+				<tr>
+					<th><a href="#time">What's the most dangerous time to be out?</a></th>
+				</tr>
+				<tr>
+					<th><a href="#area">Where are the most dangerous areas on campus?</a></th>
+				</tr>
+				<tr>
+					<th><a href="#day">Are the weekends more dangerous than the weekdays?</a></th>
+				</tr>
+				<tr>
+					<th><a href="#type">What types of crimes are committed most frequently?</a></th>
+				</tr>
+			</table>
+		</div>
+		
+    	<div id='introduction'>
+    	<h3>Introduction</h3>
+    	<p>This website is dedicated to answering interesting questions about crime at UC Berkeley &mdash; like <a href="#area">"Where are the most dangerous areas on campus?"</a> or <a href="#time">"What's the most dangerous time to be out?"</a> Each answer is supported by a visualization &mdash; a chart, a graph, or a map.</p>
+    	<p>Data is taken from crime alerts <a href="http://police.berkeley.edu/crimealerts/index.html">posted on UCPD's website</a>. The website contains information on the type of crime, approximate location, date, and time of hundreds of incidents from 2009-2013. Here, only assault, robbery, murder, and rape are investigated, ignoring incidents like harassment or vandalism. In total, 243 incidents are analyzed &mdash; not a sample size large enough to draw definitive conclusions, but enough to observe interesting trends.</p>
+    	<p>Although no amount of data is a substitute for common sense, the information here could be used to minimize the risk of robbery or assault by avoiding high-crime zones and times.</p>
+    	<p>For more information about this site and the author, visit the <a href = "./about.html">about page</a>.</p>
+    	</div>
+    	
+    	<br>
+    	<div id="time">
+    	<h3>What's the most dangerous time to be out?</h3>
+    	<p>It's common knowledge that the streets get more dangerous after dark, but at exactly what time and by how much? It might seem that the period from sundown to sunrise is uniformly dangerous, but the histogram displayed below proves that this is not quite the case (note that hours are displayed in 24-hour time).</p>
+    	<p>Crime begins to pick up around 5 p.m., increasing until it reaches the period of highest crime from 9 p.m. to midnight. After midnight, crime drops off a little, but remains high until 3 a.m. After 3 a.m., the streets are about as dangerous as they are in the daytime.</p>
+    	<h5>ANSWER: Between 9 p.m. and midnight.</h5>
+    	<script>
+			function hist1(){
+			var values = [
+			8, 7, 0, 6, 12, 2, 2, 20, 23, 17, 17, 21, 20, 23, 22, 19, 19, 7, 21, 0, 19, 5, 23, 19, 11, 22, 1, 22, 12, 1, 0, 0, 0, 23, 2, 2, 23, 2, 22, 0, 17, 10, 22, 20, 14, 12, 21, 1, 22, 5, 17, 23, 7, 20, 1, 20, 19, 1, 20, 21, 16, 1, 0, 22, 18, 19, 23, 5, 17, 20, 18, 9, 8, 19, 14, 16, 23, 21, 23, 2, 10, 21, 18, 2, 19, 22, 22, 3, 23, 21, 5, 23, 22, 22, 12, 22, 21, 19, 19, 23, 20, 20, 20, 21, 1, 20, 20, 0, 21, 19, 22, 22, 20, 16, 2, 22, 22, 20, 19, 1, 1, 18, 18, 23, 3, 23, 0, 17, 17, 20, 8, 21, 21, 21, 21, 20, 22, 21, 1, 10, 4, 20, 17, 2, 21, 1, 0, 16, 19, 22, 1, 13, 23, 2, 17, 23, 14, 22, 22, 14, 22, 22, 14, 18, 17, 18, 18, 20, 22, 16, 1, 23, 23, 23, 18, 21, 21, 22, 21, 21, 18, 21, 21, 1, 3, 21, 17, 17, 21, 2, 20, 3, 23, 4, 23, 3, 21, 16, 21, 23, 23, 23, 15, 14, 1, 2, 13, 1, 2, 23, 23, 14, 0, 23, 18, 12, 15, 13, 5, 19, 6, 12, 1, 0, 22, 23, 20, 7, 18, 2, 19, 2, 15, 13, 21, 15, 2, 21, 19, 1, 0, 22, 2]
+
+			// A formatter for counts.
+			var formatCount = d3.format(",.0f");
+
+			var margin = {top: 10, right: 75, bottom: 30, left: 5},
+				width = $(window).width() - margin.left - margin.right,
+				height = 400 - margin.top - margin.bottom;
+
+			var x = d3.scale.linear()
+				.domain([0, 24])
+				.range([0, width]);
+
+			var data = d3.layout.histogram()
+				.bins(x.ticks(24))
+				(values);
+			
+			var color = d3.scale.ordinal()
+				.range(colorbrewer.BrBG[6]);
+			
+			var y = d3.scale.linear()
+				.domain([0, d3.max(data, function(d) { return d.y; })])
+				.range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom")
+				.ticks(25);
+
+			var svg = d3.select("body").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  	.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var bar = svg.selectAll(".bar")
+				.data(data)
+			  .enter().append("g")
+				.attr("class", "bar")
+				.attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+
+			bar.append("rect")
+				.attr("x", 1)
+				.attr("width", x(data[0].dx) - 5)
+				.attr("height", function(d) { return height - y(d.y); })
+				.style("fill", function(d) {return color(d.y); });
+
+			bar.append("text")
+				.attr("dy", ".75em")
+				.attr("y", 4)
+				.attr("x", x(data[0].dx) / 2)
+				.attr("text-anchor", "middle")
+				.style("font-size",10)
+				.text(function(d) { return formatCount((d.y)/243*100) + "%"; });
+
+			svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + height + ")")
+				.call(xAxis);
+			}
+			hist1();
+		</script>
+		</div>
+		
+		<br>
+		<div id="area">
+		<h3>Where are the most dangerous areas on campus?</h3>
+		<p>Crime at UC Berkeley is not spread out evenly across campus &mdash; it tends to cluster around high-risk zones, some of which change at different hours of the day. To figure out which areas of campus are dangerous and when, we broke the campus and surrounding area up into 64 zones, and created a heatmap in which the more red a zone is, the more crime has occurred there. Mouseover a zone to see the rank (1 is the most dangerous), count of incidents that have occurred in that zone, and percentage relative to the most dangerous zone. A table also shows the top 5 most dangerous zones. Adjusting the slider limits the hours during which incidents are considered: for example, changing the slider to "0 &ndash; 2" would only display incidents between midnight and 2 a.m.</p>
+		<p>Unsurprisingly, the area surrounding People's Park in Zone 20 is the most dangerous at every hour of the day. More than 30 of the incidents reported on UCPD's website occurred in or around People's Park &mdash; this is not a place to be walking alone at any hour. Early in the morning, however (between midnight and 4 a.m., for example), Zone 27, near the main entrance to the UC Berkeley campus, is the most dangerous, and Zone 27 remains one of the most dangerous areas at every hour as well. The surrounding Southside zones (19, 28, 29) are dangerous as well, though more so late at night (10 p.m. to midnight, for example). The areas near the fraternity and sorority houses have high incidences of crime as well.</p>
+		<p>Piedmont Avenue and Gayley Road, near Foothill and Memorial Stadium, are much more dangerous late at night than in the early hours of the morning, as is the area near Grinnell Pathway.</p>
+		<p>The area near Shattuck Avenue is moderately dangerous at all hours of the day, as is Northside.</p>
+		<p>Crime in general seems to be more concentrated around hotbed zones like People's Park in the early hours of the morning than late at night.</p>
+		<h5>ANSWER: Southside and the area around People's Park are the most dangerous, though areas like Piedmont Avenue and Grinnell Pathway are as well. Some zones become more or less dangerous depending on the hour of the day.</h5>
+		<br>
+			<label for="hours">Hour range:</label>
+			<input type="text" id="hours" style="border:0; font-weight:bold;">
+		</p>
+		<div id='slider'></div>
+		</br>
+		<span id='map-canvas' style="display: inline-block;"></span>
+		<span id ='infobox' style="display: inline-block;">
+			<table layout='fixed'>
+				<col style="width:70%">
+				<col style="width:30%">
+				<tr>
+					<td colspan="2"><i>Mouse over a box to populate</i></td>
+				</tr>
+				<tr>
+					<th>Zone ID</th>
+					<td id='id'></td>
+				</tr>
+				<tr>
+					<th>Rank</th>
+					<td id='rank'></td>
+				</tr>
+				<tr>
+					<th>Count</th>
+					<td id='count'></td>
+				</tr>
+				<tr>
+					<th>Percent of Max</th>
+					<td id='percent'></td>
+				</tr>
+			</table>
+		</span>
+		<div id ='rankbox'>
+			<table>
+			<col style="width:10%">
+				<col style="width:50%">
+				<tr>
+					<th>Rank</th>
+					<th>Zone ID</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td id='rank1'></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td id='rank2'></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td id='rank3'></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td id='rank4'></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td id='rank5'></td>
+				</tr>
+			</table>
+		</div>
+		</div>
+		
+		<div id="wrapper">
+		<br>
+		<div id="day">
+		<h3>Are the weekends more dangerous than the weekdays?</h3>
+		<p>It might seem that the weekends &mdash; Friday night and Saturday night &mdash; are more dangerous than weeknights, because more people are out on the streets, or perhaps the other way around, because of safety in numbers. Neither is quite correct.</p>
+		<p>Take a look at the histogram of all incidents sorted by the day of the week on which they occurred. Thursday is actually the most dangerous day of the week, followed by Sunday (although this includes early Sunday morning, when people are still heading home from their Saturday night events). Friday and Saturday aren't significantly more dangerous than Monday &mdash; it seems that there's no significant correlation between the day of the week and crime.</p>
+		<h5>ANSWER: Not particularly.</h5>
+		<script>
+			function hist2(){
+			var values = [
+			6,6,6,4,6,0,6,0,4,0,5,0,5,4,6,4,4,5,5,4,0,4,6,4,0,5,1,0,0,2,0,2,2,0,2,1,1,4,5,4,0,2,4,6,4,4,4,4,6,4,1,1,3,0,5,0,0,6,5,0,1,6,6,6,0,4,2,6,1,5,4,4,3,1,2,0,6,4,6,1,1,1,4,5,4,6,2,6,6,2,5,1,4,1,6,2,1,0,0,1,4,5,0,0,3,1,4,0,4,6,4,5,4,2,3,3,4,6,2,3,3,0,6,2,4,6,5,0,4,0,6,4,3,1,3,2,5,5,5,5,5,6,1,4,4,2,3,3,4,5,3,0,2,2,0,5,4,4,2,4,4,3,1,6,1,0,1,2,6,6,3,0,4,3,2,4,1,0,6,1,0,0,4,3,0,1,3,1,2,1,5,1,6,2,6,0,2,0,3,3,0,3,0,1,3,6,1,0,6,2,5,3,5,3,2,3,3,0,3,6,3,5,5,1,5,0,1,5,5,1,5,4,0,5,5,4,0,1,4,4,4,2,5];
+			
+			// A formatter for counts.
+			var formatCount = d3.format(",.0f");
+
+			var margin = {top: 10, right: 85, bottom: 30, left: 15},
+				width = $(window).width() - margin.left - margin.right,
+				height = 300 - margin.top - margin.bottom;
+
+			var x = d3.scale.linear()
+				.domain([0, 7])
+				.range([0, width]);
+			
+			var color = d3.scale.ordinal()
+				.range(colorbrewer.BrBG[6]);
+			
+			var data = d3.layout.histogram()
+				.bins(x.ticks(8))
+				(values);
+
+			var y = d3.scale.linear()
+				.domain([0, d3.max(data, function(d) { return d.y; })])
+				.range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom")
+				.ticks(8)
+				.tickFormat(function(d, i){
+   				 if (d==0) {return "Sun";}
+   				 else if (d==1) {return "Mon";}
+   				 else if (d==2) {return "Tue";}
+   				 else if (d==3) {return "Wed";}
+   				 else if (d==4) {return "Thu";}
+   				 else if (d==5) {return "Fri";}
+   				 else if (d==6) {return "Sat";}
+   				 else {return ""};
+   				 })
+
+			var svg = d3.select("body").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  	.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var bar = svg.selectAll(".bar")
+				.data(data)
+			  .enter().append("g")
+				.attr("class", "bar")
+				.attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+
+			bar.append("rect")
+				.attr("x", 1)
+				.attr("width", x(data[0].dx) - 10)
+				//.attr("width",1)
+				.attr("height", function(d) { return height - y(d.y); })
+				.style("fill", function(d) { return color(d.y); });
+
+			bar.append("text")
+				.attr("dy", ".75em")
+				.attr("y", 6)
+				.attr("x", x(data[0].dx) / 2)
+				.attr("text-anchor", "middle")
+				.text(function(d) { return formatCount((d.y)/243*100) + "%"; });
+
+			svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + height + ")")
+				.call(xAxis);
+			}
+			hist2();
+		</script>
+		</div>
+		</div>
+		
+		<br>
+		<div id="type">
+		<h3>What types of crimes are committed most frequently?</h3>
+		<p>When walking late at night, how likely is it that you're assaulted versus robbed? Consider the pie chart of the types of incidents.</p>
+		<p>Armed robbery is the most common crime committed, follow by strong-arm robbery (robbery with force), followed by "simple robbery." Although the line between the types of incidents is sometimes fine, it's clear that robbery in all its forms is by far the most common incident.</p>
+		<p>Assault, sexual assault, and assault with a deadly weapon are the next most frequent incidents, but are relatively rare compared to robbery. Rape and homicide are rarer still.</p>
+		<h5>ANSWER: Robberies.</h5>
+		<div id='piechart'></div>
+		<script>
+		function piechart(){
+		var data = [14,19,81,4,1,35,2,20,66];
+		
+		var labl = [];
+		labl[14]="Assault";
+		labl[19]="Assault with a Deadly Weapon";
+		labl[81]="Armed Robbery";
+		labl[4]="Battery";
+		labl[1]="Homicide";
+		labl[35]="Robbery";
+		labl[2]="Rape";
+		labl[20]="Sexual Assault";
+		labl[66]="Strong-Arm Robbery";
+		
+		var	width = ($(window).width())/3,
+			height = width,
+			radius = Math.min(width, height) / 2;
+
+		var color = d3.scale.ordinal()
+			.range(colorbrewer.BrBG[9]);
+
+		var arc = d3.svg.arc()
+			.outerRadius(radius - 10)
+			.innerRadius(radius/2);
+
+		var pie = d3.layout.pie()
+			.sort(null)
+
+		var svg = d3.select("#piechart").append("svg")
+			.attr("width", width)
+			.attr("height", height)
+			.append("g")
+			.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+		var g = svg.selectAll(".arc")
+			.data(pie(data))
+			.enter().append("g")
+			.attr("class", "arc");
+
+		g.append("path")
+			  .attr("d", arc)
+			  .style("fill", function(d) { return color(d.data); });
+			  
+		/*g.append("text")
+			  .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+			  .attr("dy", ".35em")
+			  .style("text-anchor", "middle")
+			  .text(function(d){
+			  return d.data.label;
+			  });*/
+			  
+		 var legend = d3.select("#piechart").append("svg")
+		 	.attr("class", "legend")
+		 	.attr("width", radius * 2)
+		 	.attr("height", radius * 2)
+		 	.selectAll("g")
+		 	.data(color.domain().slice().reverse())
+		 	.enter().append("g")
+		 	.attr("transform", function(d, i) { return "translate(40," + (((height-270)/2) + (i * 30)) + ")"; });
+		 
+		 legend.append("rect")
+		 	.attr("width", 18)
+		 	.attr("height", 18)
+		 	.style("fill", color);
+		 
+		 var formatCount = d3.format(",.0f");
+		 
+		 legend.append("text")
+		 	.attr("x", 24)
+		 	.attr("y", 9)
+		 	.attr("dy", ".35em")
+		 	.text(function(d,i) {return labl[d] + ": " + formatCount(d/243*100) + "%"; });
+		 }
+		piechart();	  
+		</script>
+		</type>
+		
+		</br>
+    </body>
+</html>

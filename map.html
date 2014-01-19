@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+    <title>Crime at Cal &mdash; Visualizing crime reports at UC Berkeley</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" type="text/css" />
+    <link rel="stylesheet" href="./style.css" type="text/css" />
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjx-1kF28DSk8TihkbNJPkeOQTipuvx3g&sensor=false&libraries=drawing,geometry"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn-history/r300/trunk/maplabel/src/maplabel.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="./map_whole.js"></script>
+    <script type="text/javascript" src="https://raw.github.com/mbostock/d3/master/lib/colorbrewer/colorbrewer.js"></script>
+    
+    </head>
+    <body>
+    	<h1>Crime at Cal</h1>
+    	<h3>Visualizing crime reports at UC Berkeley</h3>
+    	<h2></h2>
+    	<div id='navigation'>
+    		<a href = "./index.html">Report</a> | <a href = "./map.html">Map</a>  | <a href = "./about.html">About</a>
+    	</div>
+    	<h2></h2>
+    	<label for="hours">Hour range:</label>
+			<input type="text" id="hours" style="border:0; font-weight:bold;">
+		
+		<div id='slider'></div>
+		<br>
+    	<div id='map-whole-canvas'></div>
+    </body>
+<html>
