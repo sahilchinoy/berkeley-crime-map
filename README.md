@@ -1,7 +1,7 @@
 berkeley-crime
 ==============
 
-s a resident of Unit 1, I'm always surprised as to how prevalent crime in the UC Berkeley area seems to be. I feel like I'm always hearing about a crazy assault, or spotting a new crime report plastered on the wall of the lobby, or being warned not to go walking late at night. There's no doubt that Berkeley has crime, and that indeed it isn't a good idea to take midnight strolls, but I wanted to know just how much crime really occurs, and more importantly, I wanted to figure out if there were any trends that might make staying safe at Cal a little easier.
+As a resident of Unit 1, I'm always surprised as to how prevalent crime in the UC Berkeley area seems to be. I feel like I'm always hearing about a crazy assault, or spotting a new crime report plastered on the wall of the lobby, or being warned not to go walking late at night. There's no doubt that Berkeley has crime, and that indeed it isn't a good idea to take midnight strolls, but I wanted to know just how much crime really occurs, and more importantly, I wanted to figure out if there were any trends that might make staying safe at Cal a little easier.
 
 I started my investigation on UCPD's website, where they have crime alerts archived for the last four years. Combing through all the alerts was interesting, to say the least &mdash; apparently, a girl was shot with an arrow in March 2013 &mdash; but it wasn't easy to pick out any trends, besides the fact that there's a lot of crime at People's Park.
 
