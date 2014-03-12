@@ -3748,7 +3748,8 @@
 
 			var data = d3.layout.histogram()
 				.bins(x.ticks(24))
-				(hour_count);
+				//(hour_count);
+                (values);
 			
 			var color = d3.scale.ordinal()
 				.range(colorbrewer.BrBG[10]);
