@@ -3896,7 +3896,7 @@ function initialize() {
 	
 	var mapOptions = {
 		center: new google.maps.LatLng(37.8689, -122.2579),
-		zoom: 14,
+		zoom: 15,
 		styles: styleArr
 	};
 	map = new google.maps.Map(document.getElementById("map-whole-canvas"),mapOptions);

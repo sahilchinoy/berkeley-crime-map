@@ -1,6 +1,9 @@
 .arc path {
 	stroke: #fff; }
 
+p {
+	color: #333; }
+
 body {
 	font-family: Helvetica, arial, sans-serif;
 	font-size: 14px;
@@ -9,6 +12,11 @@ body {
 	padding-bottom: 10px;
 	background-color: white;
 	padding: 30px; }
+
+.answer {
+	color: #6D90AF;
+	font-weight: bold;
+	font-size: 16px; }
 
 #piechart {
 	display: block;
@@ -23,7 +31,7 @@ body {
 	float: left; }
 
 #map-whole-canvas {
-	height: 400px;
+	height: 600px;
 	width: 100%;
 	float: left; }
 
@@ -40,12 +48,16 @@ body {
 
 #navigation {
 	font-family: Helvetica, arial, sans-serif;
-	font-size: 16px;
+	font-size: 18px;
+	color: #6D90AF;
 	line-height: 1.6;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	background-color: white;
 	padding: 0px; }
+
+#navigation a {
+	color: #6D90AF }
 
 body > *:first-child {
 	margin-top: 0 !important; }
@@ -53,7 +65,10 @@ body > *:last-child {
 	margin-bottom: 0 !important; }
 
 a {
-	color: #4183C4; }
+	color: #4183C4;
+	text-decoration: none; }
+a:hover {
+	text-decoration: underline; }
 a.absent {
 	color: #cc0000; }
 a.anchor {
@@ -67,7 +82,7 @@ a.anchor {
 	bottom: 0; }
 
 h1, h2, h3, h4, h5, h6 {
-	margin: 20px 0 10px;
+	margin: 10px 0 10px;
 	padding: 0;
 	font-weight: bold;
 	-webkit-font-smoothing: antialiased;
@@ -93,16 +108,18 @@ h6 tt, h6 code {
   font-size: inherit; }
 
 h1 {
-  font-size: 28px;
-  color: black; }
+  font-size: 46px;
+  color: #2E618D; }
 
 h2 {
-  font-size: 24px;
-  border-bottom: 1px solid #cccccc;
-  color: black; }
+  font-size: 28px;
+  padding-bottom: 10px;
+  border-bottom: 0px solid #cccccc;
+  color: #6D90AF; }
 
 h3 {
-  font-size: 18px; }
+  font-size: 24px;
+  color: #2E618D; }
 
 h4 {
   font-size: 16px; }
@@ -118,11 +135,7 @@ p, blockquote, ul, ol, dl, li, table, pre {
   margin: 15px 0; }
 
 hr {
-  /*background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;*/
-  border: 0 none;
-  color: #cccccc;
-  height: 4px;
-  padding: 0; }
+  border-bottom: 0px solid #cccccc; }
 
 body > h2:first-child {
   margin-top: 0;
