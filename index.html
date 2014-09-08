@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./css/starter-template.css" rel="stylesheet">
+      <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" type="text/css" />
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjx-1kF28DSk8TihkbNJPkeOQTipuvx3g&sensor=false&libraries=drawing,geometry"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn-history/r300/trunk/maplabel/src/maplabel.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/map.js"></script>
+    <script type="text/javascript" src="./js/colorbrewer.js"></script>
+      
+
+  </head>
+
+  <body data-spy="scroll" data-target=".navbar">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Berkeley Crime</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#where">Where?</a></li>
+            <li><a href="#time">What time?</a></li>
+            <li><a href="#day">What days?</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div>
+        <h1>Crime at Cal</h1>
+        <p class="lead">Visualizing crime reports at UC Berkeley</p>
+      </div>
+        <p class="text-uppercase">by <a href="http://sahilchinoy.github.io" target="_blank">Sahil Chinoy</a> &middot; January 2014</p>
+        <hr>
+        
+        <h3 id="where">Where are the most dangerous areas on campus?</h3>
+        
+    
+        <div class="col-md-8"
+            <label for="hours">Hour range:</label>
+			<input type="text" id="hours" style="border:0; font-weight:bold;">
+		</p>
+		<div id='slider'></div>
+		</br>
+        </div>
+        <div class="col-md-8">
+		<span id='map-canvas' style="display: inline-block;"></span>
+        </div>
+        <div class="col-md-4">
+			<table class="table table-striped" layout='fixed'>
+
+				<tr>
+					<td colspan="2"><i>Mouse over a box to populate</i></td>
+				</tr>
+				<tr>
+					<th>Zone</th>
+					<td id='id' width="40%"></td>
+				</tr>
+				<tr>
+					<th>Rank</th>
+					<td id='rank'></td>
+				</tr>
+				<tr>
+					<th>Count</th>
+					<td id='count'></td>
+				</tr>
+				<tr>
+					<th>Percent of Max</th>
+					<td id='percent'></td>
+				</tr>
+			</table>
+		<div id ='rankbox'>
+			<table class="table table-striped" layout="fixed">
+				<tr>
+					<th>Rank</th>
+					<th width="40%">Zone</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td id='rank1'></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td id='rank2'></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td id='rank3'></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td id='rank4'></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td id='rank5'></td>
+				</tr>
+			</table>
+		</div>
+        </div>
+    
+    <br>
+        
+		<p style="clear:both;"><br>Crime at UC Berkeley is not spread out evenly across campus &mdash; it tends to cluster around high-risk zones, some of which change at different hours of the day. To figure out which areas of campus are dangerous and when, we broke the campus and surrounding area up into 64 zones, and created a heatmap in which the more red a zone is, the more crime has occurred there. Mouseover a zone to see the rank (1 is the most dangerous), count of incidents that have occurred in that zone, and percentage relative to the most dangerous zone. A table also shows the top 5 most dangerous zones. Adjusting the slider limits the hours during which incidents are considered: for example, changing the slider to "0 &ndash; 2" would only display incidents between midnight and 2 a.m.</p>
+		<p>Unsurprisingly, the area surrounding People's Park in Zone 20 is the most dangerous at every hour of the day. More than 30 of the incidents reported on UCPD's website occurred in or around People's Park &mdash; this is not a place to be walking alone at any hour. Early in the morning, however (between midnight and 4 a.m., for example), Zone 27, near the main entrance to the UC Berkeley campus, is the most dangerous, and Zone 27 remains one of the most dangerous areas at every hour as well. The surrounding Southside zones (19, 28, 29) are dangerous as well, though more so late at night (10 p.m. to midnight, for example). The areas near the fraternity and sorority houses have high incidences of crime as well.</p>
+		<p>Piedmont Avenue and Gayley Road, near Foothill and Memorial Stadium, are much more dangerous late at night than in the early hours of the morning, as is the area near Grinnell Pathway.</p>
+		<p>The area near Shattuck Avenue is moderately dangerous at all hours of the day, as is Northside.</p>
+		<p>Crime in general seems to be more concentrated around hot zones like People's Park in the early hours of the morning than late at night.</p>
+		<p class="lead">Southside and the area around People's Park are the most dangerous, though areas like Piedmont Avenue and Grinnell Pathway are as well. Some zones become more or less dangerous depending on the hour of the day.</p>
+
+
+        <hr>
+
+    	<div id="time">
+    	<h3>What's the most dangerous time to be out?</h3>
+        <div id="timeHistogram"></div>
+    	<p>It's common knowledge that the streets get more dangerous after dark, but at exactly what time and by how much? It might seem that the period from sundown to sunrise is uniformly dangerous, but the histogram displayed below proves that this is not quite the case (note that hours are displayed in 24-hour time).</p>
+    	<p>Crime begins to pick up around 5 p.m., increasing until it reaches the period of highest crime from 9 p.m. to midnight. After midnight, crime drops off a little, but remains high until 3 a.m. After 3 a.m., the streets are about as dangerous as they are in the daytime.</p>
+    	<p class='lead'>Between 9 p.m. and midnight.</p>
+    	
+		</div>
+
+		<hr>
+        
+        <div id="day">
+		<h3>Are the weekends more dangerous than the weekdays?</h3>
+        <div id="daysHistogram"></div>
+		<p>It might seem that the weekends &mdash; Friday night and Saturday night &mdash; are more dangerous than weeknights, because more people are out on the streets, or perhaps the other way around, because of safety in numbers. Neither is quite correct.</p>
+		<p>Take a look at the histogram of all incidents sorted by the day of the week on which they occurred. Thursday is actually the most dangerous day of the week, followed by Sunday (although this includes early Sunday morning, when people are still heading home from their Saturday night events). Friday and Saturday aren't significantly more dangerous than Monday &mdash; it seems that there's no significant correlation between the day of the week and crime.</p>
+		<p class='lead'>Not particularly.</p>
+		<script>
+			function hist2(){
+			var values = [
+			6,6,6,4,6,0,6,0,4,0,5,0,5,4,6,4,4,5,5,4,0,4,6,4,0,5,1,0,0,2,0,2,2,0,2,1,1,4,5,4,0,2,4,6,4,4,4,4,6,4,1,1,3,0,5,0,0,6,5,0,1,6,6,6,0,4,2,6,1,5,4,4,3,1,2,0,6,4,6,1,1,1,4,5,4,6,2,6,6,2,5,1,4,1,6,2,1,0,0,1,4,5,0,0,3,1,4,0,4,6,4,5,4,2,3,3,4,6,2,3,3,0,6,2,4,6,5,0,4,0,6,4,3,1,3,2,5,5,5,5,5,6,1,4,4,2,3,3,4,5,3,0,2,2,0,5,4,4,2,4,4,3,1,6,1,0,1,2,6,6,3,0,4,3,2,4,1,0,6,1,0,0,4,3,0,1,3,1,2,1,5,1,6,2,6,0,2,0,3,3,0,3,0,1,3,6,1,0,6,2,5,3,5,3,2,3,3,0,3,6,3,5,5,1,5,0,1,5,5,1,5,4,0,5,5,4,0,1,4,4,4,2,5];
+			
+			// A formatter for counts.
+			var formatCount = d3.format(",.1f");
+
+			var margin = {top: 10, right: 15, bottom: 30, left: 15},
+				width = $('#daysHistogram').width() - margin.left - margin.right,
+				height = 300 - margin.top - margin.bottom;
+
+			var x = d3.scale.linear()
+				.domain([0, 7])
+				.range([0, width]);
+			
+			var color = d3.scale.ordinal()
+				.range(colorbrewer.BrBG[10]);
+			
+			var data = d3.layout.histogram()
+				.bins(x.ticks(8))
+				(values);
+
+			var y = d3.scale.linear()
+				.domain([0, d3.max(data, function(d) { return d.y; })])
+				.range([height, 0]);
+
+			var xAxis = d3.svg.axis()
+				.scale(x)
+				.orient("bottom")
+				.ticks(8)
+				.tickFormat(function(d, i){
+   				 if (d==0) {return "Sun";}
+   				 else if (d==1) {return "Mon";}
+   				 else if (d==2) {return "Tue";}
+   				 else if (d==3) {return "Wed";}
+   				 else if (d==4) {return "Thu";}
+   				 else if (d==5) {return "Fri";}
+   				 else if (d==6) {return "Sat";}
+   				 else {return ""};
+   				 })
+
+			var svg = d3.select("#daysHistogram").append("svg")
+				.attr("width", width + margin.left + margin.right)
+				.attr("height", height + margin.top + margin.bottom)
+			  	.append("g")
+				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var bar = svg.selectAll(".bar")
+				.data(data)
+			  .enter().append("g")
+				.attr("class", "bar")
+				.attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+
+			bar.append("rect")
+				.attr("x", 1)
+				.attr("width", x(data[0].dx) - 10)
+				//.attr("width",1)
+				.attr("height", function(d) { return height - y(d.y); })
+
+			bar.append("text")
+				.attr("dy", ".75em")
+				.attr("y", 6)
+				.attr("x", x(data[0].dx) / 2)
+				.attr("text-anchor", "middle")
+				.text(function(d) { return formatCount((d.y)/243*100) + "%"; });
+
+			svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate(0," + height + ")")
+				.call(xAxis);
+			}
+			hist2();
+		</script>
+		</div>
+        <hr>
+        <h3>About</h3>
+        <p>As a former resident of Unit 1, I'm always surprised as to how prevalent crime in the UC Berkeley area seems to be. I feel like I'm always hearing about a crazy assault, or spotting a new crime report plastered on the wall of the lobby, or being warned not to go walking late at night. There's no doubt that Berkeley has crime, and that indeed it isn't a good idea to take midnight strolls, but I wanted to know just how much crime really occurs, and more importantly, I wanted to figure out if there were any trends that might make staying safe at Cal a little easier.</p>
+    	<p>I started my investigation on UCPD's website, where they have <a href="http://police.berkeley.edu/crimealerts/index.html">crime alerts archived for the last four years</a>. Combing through all the alerts was interesting, to say the least &mdash; apparently, a girl was shot with an arrow in March 2013 &mdash; but it wasn't easy to pick out any trends, besides the fact that there's a lot of crime at People's Park.</p>
+    	<p>This website is the culmination of my investigation and analysis on those crime alerts. I've tackled questions such as the most dangerous time to be out and the most dangerous areas of campus to be at particular times, information that I hope will help UC Berkeley students stay safer.</p>
+    	<p>Of course, no amount of data or analysis is a substitute for common sense. You've heard it before, but it's worth repeating &mdash; don't walk alone late at night, don't walk around with your expensive cell phone out, and <a href="http://nightsafety.berkeley.edu">take advantage of services like BearWalk</a>.</p>
+    	<p>This website is a work in progress. I intend to add information about 2014 crime alerts and further analysis, so if you have any comments or suggestions, please get in touch with me.</p>
+		</div>
+        
+			
+		</div>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+<script type="text/javascript" src="./js/timeHistogram.js"></script>
+    
+  </body>
+</html>
