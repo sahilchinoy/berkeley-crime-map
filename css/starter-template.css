@@ -1,0 +1,38 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+}
+
+.arc path {
+	stroke: #fff; }
+
+p {
+	color: #333; }
+
+
+#piechart {
+	display: block;
+	float: left; }
+
+#wrapper {
+	clear: both; }
+
+#map-canvas {
+	height: 530px;
+	width: 100%;
+	float: left; }
+
+
+.bar rect {
+	fill: steelblue;
+	shape-rendering: crispEdges; }
+
+.bar text {
+	fill: #fff; }
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges; }
